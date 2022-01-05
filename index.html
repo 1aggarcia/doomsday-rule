@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-		<title>A day for any date</title>
+		<title>The Doomsday Rule</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		<link rel="stylesheet" href="lib/style.css"/>
 		<link rel="shortcut icon" href="http://www.iconj.com/ico/f/a/fa2vo811im.ico" type="image/x-icon" />
@@ -9,17 +9,17 @@
 <body>
 
 <ul>
-		<li><a href="#link1">Date Gen</a></li>
-		<li><a href="#link2">Date Calc</a></li>
-		<li><a href="#link3">LTD Calc</a></li>
-		<li><a href="#link4">Tutorial</a></li>
+		<li><a href="#genarator">Generator</a></li>
+		<li><a href="#calculator">Calc</a></li>
+		<li><a href="#ltd-calc">LTD Calc</a></li>
+		<li><a href="#tutorial">Tutorial</a></li>
 </ul>
 
 <div style="padding:8px;margin-top:35px;"></div>
 
 <div class="row">
-<div id="link1" class="column">
-<h1>Date Generator</h1>
+<div id="genarator" class="column">
+<h2>Generator</h2>
 <p>Generates random dates between the two years entered below.
 Default range is the past 400 years in order to make use of all century codes.</p>
 
@@ -27,9 +27,9 @@ Default range is the past 400 years in order to make use of all century codes.</
 		Generate&nbsp;
 		<input type="number" id="dates" min="1" max="20" value="5">
 		&nbsp;dates between years<br>
-		<input type="tel" id="start" class="input_year" maxlength="4" placeholder="Year" autocomplete="off" value="1619">
+		<input type="tel" id="start" class="input_year" maxlength="4" placeholder="Year" autocomplete="off" value="1600">
 		&nbsp;and&nbsp;
-		<input type="tel" id="end" class="input_year" maxlength="4" placeholder="Year" autocomplete="off" value="2019">
+		<input type="tel" id="end" class="input_year" maxlength="4" placeholder="Year" autocomplete="off" value="1999">
 		<br><br>
 		<!--<label for="dates">Number of Dates: </label>
 		<input type="number" name="dates" id="dates" min="1" max="20" value="5"><br>-->
@@ -39,51 +39,37 @@ Default range is the past 400 years in order to make use of all century codes.</
 <div id="dList"></div>
 </div>
 
-<div id="link2" class="column">
-<h1>Date Calculator</h1>
-<p>Tells you multiple details about the date entered, such as wether
-it is a leap year or not, the Century Offset, LDT Offset, etc.</p>
+<div id="calculator" class="column">
+<h2>Calculator</h2>
+<p>Calculates the day of the week of any date entered and breaks down the calculations.</p>
 
 <form action="javascript:verifyDate()">
-	<select id="month">
-		<option hidden="true" disabled="true" selected="true" value="0">Month</option>
-		<option value="1">Jan</option>
-		<option value="2">Feb</option>
-		<option value="3">March</option>
-		<option value="4">April</option>
-		<option value="5">May</option>
-		<option value="6">June</option>
-		<option value="7">July</option>
-		<option value="8">Aug</option>
-		<option value="9">Sep</option>
-		<option value="10">Oct</option>
-		<option value="11">Nov</option>
-		<option value="12">Dec</option>
-	</select>
-	<input type="tel" id="day" class="input_day" placeholder="Day" maxlength="2" autocomplete="off">
 	<input type="tel" id="year" class="input_year" placeholder="Year" maxlength="4" autocomplete="off">
+	<input type="tel" id="month" class="input_month" placeholder="Month" maxlength="2" autocomplete="off">
+	<input type="tel" id="day" class="input_day" placeholder="Day" maxlength="2" autocomplete="off">
 	<button id="submit">Calculate</button><br>
 <br>
 </form>
 <br>
 <div class="code">
 <code>
-    <p id="mathDate"></p><br>
+    <p id="mathDate"></p>
+    <br>
+    <p id="mathDay"><p>
     <p id="mathCent"></p>
     <p id="mathLTD"></p>
-    <p id="mathDay"><p><br>
+    <br>
     <p id="mathDOW"></p>
 </code>
 </div>
 </div>
 
 
-<div id="link3" class="column">
-<h1>LTD Offset Calculator</h1>
-<p>Uses a formula to get the LTD Offset of the last two digits of the
-year. The formula defines <i>a</i> as the integer part of the LDT/12,
-<i>b</i> as the remainder of the LTD/12, and <i>c</i> as the remainder of
-<i>b</i>/4. The LDT offset is the remainder of (<i>a</i>+<i>b</i>+<i>c</i>)/7.</p>
+<div id="ltd-calc" class="column">
+<h2>Last-Two-Digits Offset</h2>
+<p>Simply add the number of leap years (year / 4) to the year and subtract all factors of 7 from the sum. Use this tool to double check your math.<br><br>
+To simplify the math for larger years, you can subtract all factors of 28, (28, 56 or 84) and use that as the year instead. 
+This works because the calendar repeats every 28 years within the same century.</p>
 
 <form action="javascript:getLtdOff()">
 		<label for="ltd">Last Two Digits of Year: </label>
@@ -103,8 +89,8 @@ year. The formula defines <i>a</i> as the integer part of the LDT/12,
 </div>
 </div>
 
-<div id="link4" style="margin:5px;padding:10px;background-color:#ffffff;">
-	<h1>Tutorial</h1>
+<div id="tutorial" style="margin:5px;padding:10px;background-color:#ffffff;">
+	<h2>Tutorial</h2>
 	<p>
 	We will use the date July 20, 1969 as an example. The formula for the day of the week of a date is x + y + z.</p>
 		x = <a href="#link4a">Century offset</a><br>
@@ -121,53 +107,8 @@ year. The formula defines <i>a</i> as the integer part of the LDT/12,
 	<p>
 	<br>
 	<h3 id="link4b">LTD offset:</h3>
-	The LTD, or Last Two Digits offset is determined using the last two digits of the year, as the name suggests. There is a formula to get this, but doing this in your head is rather slow, so instead, you can memorize the LTDs for every 4 years, and determine the difference from there. The offsets you need to memorize are below:<br><br>
-<table style="border:1px;">
-	<tr>
-		<th>0</th>
-		<th>5</th>
-		<th>3</th>
-		<th>1</th>
-		<th>6</th>
-		<th>4</th>
-		<th>2</th>
-	</tr>
-	<tr>
-		<td>'00</td>
-		<td>'04</td>
-		<td>'08</td>
-		<td>'12</td>
-		<td>'16</td>
-		<td>'20</td>
-		<td>'24</td>
-	</tr>
-	<tr>
-		<td>'28</td>
-		<td>'32</td>
-		<td>'36</td>
-		<td>'40</td>
-		<td>'44</td>
-		<td>'48</td>
-		<td>'52</td>
-	</tr>
-	<tr>
-		<td>'56</td>
-		<td>'60</td>
-		<td>'64</td>
-		<td>'68</td>
-		<td>'72</td>
-		<td>'76</td>
-		<td>'80</td>
-	</tr>
-	<tr>
-		<td>'84</td>
-		<td>'88</td>
-		<td>'92</td>
-		<td>'96</td>
-		<td></td><td></td><td></td>
-	</tr>
-</table><br>
-	The closest leap year to '69 is '68, being one year ahead. We take the offset of '68, 1, and add one, giving us 2.
+	The LTD (Last Two Digits) offset is determined using the last two digits of the year, as the name suggests. You determine the offset by adding the number of leaps years for the number of years of the last two digits (LTD / 4), and subtract all factors of 7 (modulus). For our example '69, by dividing 69 by 4 we see there are 17 leap years in 69 years, so we add the two to get 86 and modulo the result by 7, giving us 2.<br><br>
+	Since the calendar repeats every 28 years within the same century, there is a shortcut which makes doing math on larger numbers easier. Simply subtract all factors of 28 (28, 56, 84) from the year and use that as the LTD instead. So for '69, we can subtract 56 from 69 and do the calculation with '13 instead.
 	</p>
 	<p>
 	<br>
@@ -195,7 +136,7 @@ year. The formula defines <i>a</i> as the integer part of the LDT/12,
 		<option value="USnum">MM-DD-YYYY (06-26-1969)</option>
 		<option value="UKnum">DD-MM-YYYY (26-06-1969)</option>
 </select>
-<div style="text-align:right;">v 0.20201106</div>
+<div style="text-align:right;">vers 2022.0105</div>
 </div>
 
 <script src="lib/script.js"></script>
