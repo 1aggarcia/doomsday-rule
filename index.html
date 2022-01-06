@@ -3,8 +3,8 @@
 <head>
 		<title>The Doomsday Rule</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-		<link rel="stylesheet" href="lib/style.css"/>
-		<link rel="shortcut icon" href="http://www.iconj.com/ico/f/a/fa2vo811im.ico" type="image/x-icon" />
+		<link rel="stylesheet" href="src/style.css"/>
+		<link rel="shortcut icon" href="src/calendar.ico" type="image/x-icon" />
 </head>
 <body>
 
@@ -67,9 +67,8 @@ Default range is the past 400 years in order to make use of all century codes.</
 
 <div id="ltd-calc" class="column">
 <h2>Last-Two-Digits Offset</h2>
-<p>Simply add the number of leap years (year / 4) to the year and subtract all factors of 7 from the sum. Use this tool to double check your math.<br><br>
-To simplify the math for larger years, you can subtract all factors of 28, (28, 56 or 84) and use that as the year instead. 
-This works because the calendar repeats every 28 years within the same century.</p>
+<p>Add the number of leap years (year / 4) to the year and subtract all factors of 7 from the sum. Use this tool to double check your math.<br><br>
+To simplify the math for larger years, you can subtract all factors of 28, (28, 56 or 84) and use that as the year instead.</p>
 
 <form action="javascript:getLtdOff()">
 		<label for="ltd">Last Two Digits of Year: </label>
@@ -92,38 +91,50 @@ This works because the calendar repeats every 28 years within the same century.<
 <div id="tutorial" style="margin:5px;padding:10px;background-color:#ffffff;">
 	<h2>Tutorial</h2>
 	<p>
-	We will use the date July 20, 1969 as an example. The formula for the day of the week of a date is x + y + z.</p>
-		x = <a href="#link4a">Century offset</a><br>
-	y = <a href="#link4b">LTD offset</a><br>
-	z = <a href="#link4c">Day offset</a>
-	<p>
+	The day of the week is determined by adding three components: one for the day, two for the year (the first two digits, or century, and last two digits). July 20, 1969 will be used as an example.</p>
+	a) <a href="#tutorial-day">Day offset</a><br>
+	b) <a href="#tutorial-cent">Century offset</a><br>
+	c) <a href="#tutorial-ltd">LTD offset</a>
 	<br>
-	<h3 id="link4a">Century offset:</h3>
-	The Gregorian Calendar repeats every 400 years, so there are only four century offsets. Memorize these four and you can work out the century offset of any year outside of these bounds*.<br><br>
+	<p>
+	<h3 id="tutorial-day">Day offset:</h3>
+	In every year, there are certain days in each month that fall on the same day of the week of a given year. Some are very easy to remember, such as 		<br><br>4/4
+	<br>6/6
+	<br>8/8
+	<br>10/10
+	<br>12/12
+	<br><br>There are some more that can be remembered with the mnemonic "I work 9 to 5 at the 7 eleven":
+	<br><br>5/9 and 9/5
+	<br>7/11 and 11/7
+	<br><br>This covers most months except the first three of the year. March's doomsday is on pi day (the 14th, 3.14) February's is on the last day of the month, the 29th on leap years and the 28th on regular years, and January's is on the 3rd on regular years and the 4th on leap years. The final list of doomsdays for the year are as follows:
+	<br><br>Jan 03 | Feb 28 (add one on leap years)
+	<br>Mar 14 | Apr 4
+	<br>May 9 | Jun 6
+	<br>Jul 11 | Aug 8
+	<br>Sep 5 | Oct 10
+	<br>Nov 7 | Dec 12
+	<br><br>To find the day offset you subtract the doomsday of the month from the day. For July 20, we find July's doomsday to be the 11th, so we subtract 20-11 and get 9. We will modulo the result by 7 to make calculations easier later on, so we do 9 % 7 and use 2 as the day offset.
+	</p>
+	<br>
+	<p>
+	<h3 id="tutorial-cent">Century offset:</h3>
+	This is the easiest part. The Gregorian calendar repeats every 400 years, so there are only 4 century codes to memorize:<br><br>
 	1. 1700  = 0<br>2. 1800 = 5<br>3. 1900 = 3<br>4. 2000 = 2<br><br>
-	Since 1969 is in the 1900s the century offset is 3. To get the century offset of any year outside this range, use the <i>n</i>th item of the list above, where <i>n</i> is the remainder of the first two digits divided by 4 (if remainder is 0 use 4 for <i>n</i>). Ex for 2100, <i>n</i> = 21 mod 4, so <i>n</i> = 1. 1st item of the list is 1700 = 0, so the century offset for 2100 is 0.<br><br>
-		* The first day of the Gregorian calendar is Oct 15, 1582, so dates before then don't technically exist in our calendar. They instead exist in the Julian calendar, which is similar to ours, but flawed, so the days of the week don't line up.
+	After 2000 the cycle repeats, the 2100s have the century code 0, the 2200s are 5, the 2300s are 3 and so on. Same applies in reverse; the 1600s are 2 and the 1500s are 3.<br>
+	Since 1969 is in the 1900s the century offset is 3.
 	</p>
-	<p>
 	<br>
-	<h3 id="link4b">LTD offset:</h3>
-	The LTD (Last Two Digits) offset is determined using the last two digits of the year, as the name suggests. You determine the offset by adding the number of leaps years for the number of years of the last two digits (LTD / 4), and subtract all factors of 7 (modulus). For our example '69, by dividing 69 by 4 we see there are 17 leap years in 69 years, so we add the two to get 86 and modulo the result by 7, giving us 2.<br><br>
-	Since the calendar repeats every 28 years within the same century, there is a shortcut which makes doing math on larger numbers easier. Simply subtract all factors of 28 (28, 56, 84) from the year and use that as the LTD instead. So for '69, we can subtract 56 from 69 and do the calculation with '13 instead.
+	<p>
+	<h3 id="tutorial-ltd">LTD offset:</h3>
+	The LTD (Last Two Digits) offset is determined using the last two digits of the year, as the name suggests. You determine the offset by adding the number of leaps years for the number of years of the last two digits (LTD / 4), and subtract all factors of 7 (modulus). So for example if the LTD were '09, you would add the 2 leap years that take place in 9 years (9 / 4 = 2), and modulo the result of 11 by 7, leaving 4.<br><br>
+
+	For larger years such as our example '69, there is a shortcut. The calendar repeats every 28 years within the same century, so you can modulo the year by 28, which means either subtracting 28, 56 or 84, and use that number instead as the year. So for '69 we subtract 56 and use '13 as the year for calculations instead. Then you add the leap years (3 in this case) and modulo by 7 as usual. (13 + 3 = 16, 16 % 7 = 2). Now you know the LTD offset for '13 is 2, and is the same for '69.
 	</p>
-	<p>
 	<br>
-	<h3 id="link4c">Day offset:</h3>
-	In every year, there are certain days in each month that fall on the same day of the week of a given year. The day of the week these dates fall is the doomsday of that year. The doomsdays are as follows:<br><br>
-	Jan 3 (4 on leap years)<br>Feb 7 (1 on leap years)<br>Mar 7<br>Apr 4<br>May 2<br>Jun 6<br>Jul 4<br>Aug 1<br>Sep 5<br>Oct 3<br>Nov 7<br>Dec 5<br><br>
-	For leap years (years divisible by 4 &amp; not divisible by 100, or years divisible by 400) you must add 1 to the doomsday in January and February. For doomsdays that are the 7th day of the month such as in February, you can substitute the 7 for a 0 when calculating to make it easier.<br><br>
-	To get the day offset, mod the day of the month by 7 (divide the day by 7 and take the remainder), then subtract it from the doomsday of that month. So for July 20, we mod 20 by 7, giving us 6, then subtract that from July's doomsday, the 4th, resulting in 2.
-	</p>
 	<p>
-	<br>
 	<h3>Putting it all together:</h3>
-	Now that we have determined the Century offset, LTD offset, and Day offset, all you have to do is add them and mod the result by 7. for July 20, 1969 we got x=3, y=2, and z=0. 3+2+2 = 0 (actually =7 but 7 mod 7 = 0), so July 20, 1969 is Sunday according to the day codes below:
-	</p>
-	<p>
+	Now that we have determined the Day offset, Century offset, LTD offset, and all you have to do is add them and modulo the result by 7. for July 20, 1969 we got 2 as the day offset, 3 for the century and 2 for the LTD. Adding 2+3+2 we get 7, and by taking the modulus of 7  we get 0, so July 20, 1969 is Sunday according to the day codes below:
+	<br><br>
 	0 = Sunday<br>1 = Monday<br>2 = Tuesday<br>3 = Wednesday<br>4 = Thursday<br>5 = Friday<br>6 = Saturday
 	</p>
 </div>
@@ -139,6 +150,6 @@ This works because the calendar repeats every 28 years within the same century.<
 <div style="text-align:right;">vers 2022.0105</div>
 </div>
 
-<script src="lib/script.js"></script>
+<script src="src/script.js"></script>
 </body>
 </html>

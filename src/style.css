@@ -1,7 +1,7 @@
 body {
 	font-family:"Arial";
 	margin:0;
-    background-color:#540632;
+    background-color:#018a26	;
 }	
 .input_year {
     width:5em;
@@ -15,7 +15,7 @@ h3 {
 .code {
     border: 1px solid #d1d1d1;
     padding:5px;
-    background-color:#eeeeee;
+    background-color:#f7f7f7;
 }
 ul {
 	list-style-type:none;
@@ -25,7 +25,7 @@ ul {
 	position:fixed;
 	top:0;
 	width:100%;
-    background-color:#c90072;
+    background-color:#02cc38;
 }
 li {
 		float:left;
@@ -37,13 +37,13 @@ li a {
     color:#ffffff;
     font-weight:bold;
     font-size:16px;
-    background-color:#c90072;
+    background-color:#02cc38;
 }
 li a:hover {
-    background-color:#ff0090;
+    background-color:#00fc43;
 }
 .active {
-    background-color:#ff0090;
+    background-color:#00fc43;
 }
 table, th, td {
     border:1px solid;
