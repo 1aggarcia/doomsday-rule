@@ -1,155 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-		<title>The Doomsday Rule</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-		<link rel="stylesheet" href="src/style.css"/>
-		<link rel="shortcut icon" href="src/calendar.ico" type="image/x-icon" />
+	<title>The Doomsday Rule</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<link rel="stylesheet" href="src/style.css"/>
+	<link rel="shortcut icon" href="src/calendar.ico" type="image/x-icon" />
+	<script 
+		src="https://code.jquery.com/jquery-3.7.1.min.js"
+		integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+		crossorigin="anonymous">
+	</script>
 </head>
 <body>
-
-<ul>
+	<ul class="navigator">
 		<li><a href="#genarator">Generator</a></li>
 		<li><a href="#calculator">Calc</a></li>
 		<li><a href="#ltd-calc">LTD Calc</a></li>
+		<li><a href="#year-guesser">Year Guesser</a></li>
 		<li><a href="#tutorial">Tutorial</a></li>
-</ul>
+	</ul>
 
-<div style="padding:8px;margin-top:35px;"></div>
+	<div style="padding:8px;margin-top:35px;"></div>
 
-<div class="row">
-<div id="genarator" class="column">
-<h2>Generator</h2>
-<p>Generates random dates between the two years entered below.
-Default range is the past 400 years in order to make use of all century codes.</p>
+	<div class="row">
+		<div id="genarator" class="column">
+			<h2>Generator</h2>
+			<p>Generates random dates between the two years entered below.
+			Default range is the past 400 years in order to make use of all century codes.</p>
+			<form action="javascript:loopDays()">
+				Generate&nbsp;
+				<input type="number" id="dates" min="1" max="20" value="5">
+				&nbsp;dates between years<br>
+				<input type="tel" id="start" class="input_year" maxlength="4" placeholder="Year" autocomplete="off" value="1600">
+				&nbsp;and&nbsp;
+				<input type="tel" id="end" class="input_year" maxlength="4" placeholder="Year" autocomplete="off" value="1999">
+				<br><br>
+				<button>Generate Dates</button>
+			</form>
+			<br>
+			<div id="dList"></div>
+		</div>
+		<div id="calculator" class="column">
+			<h2>Calculator</h2>
+			<p>Calculates the day of the week of any date entered and breaks down the calculations.</p>
 
-<form action="javascript:loopDays()">
-		Generate&nbsp;
-		<input type="number" id="dates" min="1" max="20" value="5">
-		&nbsp;dates between years<br>
-		<input type="tel" id="start" class="input_year" maxlength="4" placeholder="Year" autocomplete="off" value="1600">
-		&nbsp;and&nbsp;
-		<input type="tel" id="end" class="input_year" maxlength="4" placeholder="Year" autocomplete="off" value="1999">
+			<form action="javascript:verifyDate()">
+				<input type="tel" id="year" class="input_year" placeholder="Year" maxlength="4" autocomplete="off">
+				<input type="tel" id="month" class="input_month" placeholder="Month" maxlength="2" autocomplete="off">
+				<input type="tel" id="day" class="input_day" placeholder="Day" maxlength="2" autocomplete="off">
+				<button type="submit">Calculate</button>
+				<button type="button" onclick="javascript:clearCalcInput()">Clear</button>
+				<br>
+			<br>
+			</form>
+			<br>
+			<div class="code">
+			<code>
+				<p id="mathDate"></p>
+				<br>
+				<p id="mathDay"><p>
+				<p id="mathCent"></p>
+				<p id="mathLTD"></p>
+				<br>
+				<p id="mathDOW"></p>
+			</code>
+			</div>
+		</div>
+		<div id="ltd-calc" class="column">
+			<h2>Last-Two-Digits Offset</h2>
+			<p>Add the number of leap years (year / 4) to the year and subtract all factors of 7 from the sum. Use this tool to double check your math.<br><br>
+			To simplify the math for larger years, you can subtract all factors of 28, (28, 56 or 84) and use that as the year instead.</p>
+
+			<form action="javascript:getLtdOff()">
+				<label for="ltd">Last Two Digits of Year: </label>
+				<input id="ltd" type="number" min="0" max="99">
+				<button>Get LTD Offset</button>
+			</form>
+			<br>
+			<div id="dList" class="code">
+				<code>
+					<p id="ltdOut1"></p><br>
+					<p id="ltdOut2"></p>
+					<p id="ltdOut3"></p>
+					<p id="ltdOut4"></p><br>
+					<p id="ltdOut5"></p>
+				</code>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div id="year-guesser" class="column invisible">
+			<h2>Year Guesser</h2>
+			<p>
+				Gives a list of years that a given date could possible fall on, given the month,
+				day, and date of week. For example, given Tuesday, January 9, this tool may guess
+				the year 2024.
+			</p>
+			<form id="guesserForm" onsubmit="return false">
+				<select id="guesserDow">
+					<option value="0">0 (Sun)</option>
+					<option value="1">1 (Mon)</option>
+					<option value="2">2 (Tue)</option>
+					<option value="3">3 (Wed)</option>
+					<option value="4">4 (Thu)</option>
+					<option value="5">5 (Fri)</option>
+					<option value="6">6 (Sat)</option>
+				</select>
+				<input type="tel" id="guesserMonth" class="input_month" placeholder="Month" maxlength="2" autocomplete="off">
+				<input type="tel" id="guesserDay" class="input_day" placeholder="Day" maxlength="2" autocomplete="off">
+				<button>Guess Years</button>
+			</form>
+			<div id="guesserResults">
+				<p><b>Possible years:</b></p>
+				<ul id="guesserResultsList"></ul>
+			</div>
+			<br/>
+		</div>
+	</div>
+
+	<div id="tutorial" style="margin:5px;padding:10px;background-color:#ffffff;">
+		<h2>Tutorial</h2>
+		<p>
+		The day of the week is determined by adding three components: one for the day, two for the year (the first two digits, or century, and last two digits). July 20, 1969 will be used as an example.</p>
+		a) <a href="#tutorial-day">Day offset</a><br>
+		b) <a href="#tutorial-cent">Century offset</a><br>
+		c) <a href="#tutorial-ltd">LTD offset</a>
+		<br>
+		<p>
+		<h3 id="tutorial-day">Day offset:</h3>
+		In every year, there are certain days in each month that fall on the same day of the week of a given year. Some are very easy to remember, such as 		<br><br>4/4
+		<br>6/6
+		<br>8/8
+		<br>10/10
+		<br>12/12
+		<br><br>There are some more that can be remembered with the mnemonic "I work 9 to 5 at the 7 eleven":
+		<br><br>5/9 and 9/5
+		<br>7/11 and 11/7
+		<br><br>This covers most months except the first three of the year. March's doomsday is on pi day (the 14th, 3.14) February's is on the last day of the month, the 29th on leap years and the 28th on regular years, and January's is on the 3rd on regular years and the 4th on leap years. The final list of doomsdays for the year are as follows:
+		<br><br>Jan 03 | Feb 28 (add one on leap years)
+		<br>Mar 14 | Apr 4
+		<br>May 9 | Jun 6
+		<br>Jul 11 | Aug 8
+		<br>Sep 5 | Oct 10
+		<br>Nov 7 | Dec 12
+		<br><br>To find the day offset you subtract the doomsday of the month from the day. For July 20, we find July's doomsday to be the 11th, so we subtract 20-11 and get 9. We will modulo the result by 7 to make calculations easier later on, so we do 9 % 7 and use 2 as the day offset.
+		</p>
+		<br>
+		<p>
+		<h3 id="tutorial-cent">Century offset:</h3>
+		This is the easiest part. The Gregorian calendar repeats every 400 years, so there are only 4 century codes to memorize:<br><br>
+		1. 1700  = 0<br>2. 1800 = 5<br>3. 1900 = 3<br>4. 2000 = 2<br><br>
+		After 2000 the cycle repeats, the 2100s have the century code 0, the 2200s are 5, the 2300s are 3 and so on. Same applies in reverse; the 1600s are 2 and the 1500s are 3.<br>
+		Since 1969 is in the 1900s the century offset is 3.
+		</p>
+		<br>
+		<p>
+		<h3 id="tutorial-ltd">LTD offset:</h3>
+		The LTD (Last Two Digits) offset is determined using the last two digits of the year, as the name suggests. You determine the offset by adding the number of leaps years for the number of years of the last two digits (LTD / 4), and subtract all factors of 7 (modulus). So for example if the LTD were '09, you would add the 2 leap years that take place in 9 years (9 / 4 = 2), and modulo the result of 11 by 7, leaving 4.<br><br>
+
+		For larger years such as our example '69, there is a shortcut. The calendar repeats every 28 years within the same century, so you can modulo the year by 28, which means either subtracting 28, 56 or 84, and use that number instead as the year. So for '69 we subtract 56 and use '13 as the year for calculations instead. Then you add the leap years (3 in this case) and modulo by 7 as usual. (13 + 3 = 16, 16 % 7 = 2). Now you know the LTD offset for '13 is 2, and is the same for '69.
+		</p>
+		<br>
+		<p>
+		<h3>Putting it all together:</h3>
+		Now that we have determined the Day offset, Century offset, LTD offset, and all you have to do is add them and modulo the result by 7. for July 20, 1969 we got 2 as the day offset, 3 for the century and 2 for the LTD. Adding 2+3+2 we get 7, and by taking the modulus of 7  we get 0, so July 20, 1969 is Sunday according to the day codes below:
 		<br><br>
-		<!--<label for="dates">Number of Dates: </label>
-		<input type="number" name="dates" id="dates" min="1" max="20" value="5"><br>-->
-		<button>Generate Dates</button>
-</form>
-<br>
-<div id="dList"></div>
-</div>
+		0 = Sunday<br>1 = Monday<br>2 = Tuesday<br>3 = Wednesday<br>4 = Thursday<br>5 = Friday<br>6 = Saturday
+		</p>
+	</div>
 
-<div id="calculator" class="column">
-<h2>Calculator</h2>
-<p>Calculates the day of the week of any date entered and breaks down the calculations.</p>
-
-<form action="javascript:verifyDate()">
-	<input type="tel" id="year" class="input_year" placeholder="Year" maxlength="4" autocomplete="off">
-	<input type="tel" id="month" class="input_month" placeholder="Month" maxlength="2" autocomplete="off">
-	<input type="tel" id="day" class="input_day" placeholder="Day" maxlength="2" autocomplete="off">
-	<button id="submit">Calculate</button><br>
-<br>
-</form>
-<br>
-<div class="code">
-<code>
-    <p id="mathDate"></p>
-    <br>
-    <p id="mathDay"><p>
-    <p id="mathCent"></p>
-    <p id="mathLTD"></p>
-    <br>
-    <p id="mathDOW"></p>
-</code>
-</div>
-</div>
-
-
-<div id="ltd-calc" class="column">
-<h2>Last-Two-Digits Offset</h2>
-<p>Add the number of leap years (year / 4) to the year and subtract all factors of 7 from the sum. Use this tool to double check your math.<br><br>
-To simplify the math for larger years, you can subtract all factors of 28, (28, 56 or 84) and use that as the year instead.</p>
-
-<form action="javascript:getLtdOff()">
-		<label for="ltd">Last Two Digits of Year: </label>
-		<input id="ltd" type="number" min="0" max="99">
-		<button>Get LTD Offset</button>
-</form>
-<br>
-<div id="dList" class="code">
-<code>
-<p id="ltdOut1"></p><br>
-<p id="ltdOut2"></p>
-<p id="ltdOut3"></p>
-<p id="ltdOut4"></p><br>
-<p id="ltdOut5"></p>
-</code>
-</div>
-</div>
-</div>
-
-<div id="tutorial" style="margin:5px;padding:10px;background-color:#ffffff;">
-	<h2>Tutorial</h2>
-	<p>
-	The day of the week is determined by adding three components: one for the day, two for the year (the first two digits, or century, and last two digits). July 20, 1969 will be used as an example.</p>
-	a) <a href="#tutorial-day">Day offset</a><br>
-	b) <a href="#tutorial-cent">Century offset</a><br>
-	c) <a href="#tutorial-ltd">LTD offset</a>
-	<br>
-	<p>
-	<h3 id="tutorial-day">Day offset:</h3>
-	In every year, there are certain days in each month that fall on the same day of the week of a given year. Some are very easy to remember, such as 		<br><br>4/4
-	<br>6/6
-	<br>8/8
-	<br>10/10
-	<br>12/12
-	<br><br>There are some more that can be remembered with the mnemonic "I work 9 to 5 at the 7 eleven":
-	<br><br>5/9 and 9/5
-	<br>7/11 and 11/7
-	<br><br>This covers most months except the first three of the year. March's doomsday is on pi day (the 14th, 3.14) February's is on the last day of the month, the 29th on leap years and the 28th on regular years, and January's is on the 3rd on regular years and the 4th on leap years. The final list of doomsdays for the year are as follows:
-	<br><br>Jan 03 | Feb 28 (add one on leap years)
-	<br>Mar 14 | Apr 4
-	<br>May 9 | Jun 6
-	<br>Jul 11 | Aug 8
-	<br>Sep 5 | Oct 10
-	<br>Nov 7 | Dec 12
-	<br><br>To find the day offset you subtract the doomsday of the month from the day. For July 20, we find July's doomsday to be the 11th, so we subtract 20-11 and get 9. We will modulo the result by 7 to make calculations easier later on, so we do 9 % 7 and use 2 as the day offset.
-	</p>
-	<br>
-	<p>
-	<h3 id="tutorial-cent">Century offset:</h3>
-	This is the easiest part. The Gregorian calendar repeats every 400 years, so there are only 4 century codes to memorize:<br><br>
-	1. 1700  = 0<br>2. 1800 = 5<br>3. 1900 = 3<br>4. 2000 = 2<br><br>
-	After 2000 the cycle repeats, the 2100s have the century code 0, the 2200s are 5, the 2300s are 3 and so on. Same applies in reverse; the 1600s are 2 and the 1500s are 3.<br>
-	Since 1969 is in the 1900s the century offset is 3.
-	</p>
-	<br>
-	<p>
-	<h3 id="tutorial-ltd">LTD offset:</h3>
-	The LTD (Last Two Digits) offset is determined using the last two digits of the year, as the name suggests. You determine the offset by adding the number of leaps years for the number of years of the last two digits (LTD / 4), and subtract all factors of 7 (modulus). So for example if the LTD were '09, you would add the 2 leap years that take place in 9 years (9 / 4 = 2), and modulo the result of 11 by 7, leaving 4.<br><br>
-
-	For larger years such as our example '69, there is a shortcut. The calendar repeats every 28 years within the same century, so you can modulo the year by 28, which means either subtracting 28, 56 or 84, and use that number instead as the year. So for '69 we subtract 56 and use '13 as the year for calculations instead. Then you add the leap years (3 in this case) and modulo by 7 as usual. (13 + 3 = 16, 16 % 7 = 2). Now you know the LTD offset for '13 is 2, and is the same for '69.
-	</p>
-	<br>
-	<p>
-	<h3>Putting it all together:</h3>
-	Now that we have determined the Day offset, Century offset, LTD offset, and all you have to do is add them and modulo the result by 7. for July 20, 1969 we got 2 as the day offset, 3 for the century and 2 for the LTD. Adding 2+3+2 we get 7, and by taking the modulus of 7  we get 0, so July 20, 1969 is Sunday according to the day codes below:
-	<br><br>
-	0 = Sunday<br>1 = Monday<br>2 = Tuesday<br>3 = Wednesday<br>4 = Thursday<br>5 = Friday<br>6 = Saturday
-	</p>
-</div>
-
-<div style="margin:5px;padding:10px;background-color:#ffffff;">
-<label for="format">Date Format:</label>
-<select id="format">
-		<option value="UK">DD MMM YYYY (20 Jun 1969)</option>
-		<option value="ISO">YYYY-MM-DD (1969-06-20)</option>
-		<option value="USnum">MM-DD-YYYY (06-26-1969)</option>
-		<option value="UKnum">DD-MM-YYYY (26-06-1969)</option>
-</select>
-<div style="text-align:right;">vers 2022.0105</div>
-</div>
-
-<script src="src/script.js"></script>
+	<div style="margin:5px;padding:10px;background-color:#ffffff;">
+		<label for="format">Date Format:</label>
+		<select id="format">
+			<option value="UK">DD MMM YYYY (20 Jun 1969)</option>
+			<option value="ISO">YYYY-MM-DD (1969-06-20)</option>
+			<option value="USnum">MM-DD-YYYY (06-26-1969)</option>
+			<option value="UKnum">DD-MM-YYYY (26-06-1969)</option>
+		</select>
+		<div style="text-align:right;">vers 2024.0109</div>
+	</div>
+	<script src="src/main.js"></script>
+	<!-- 
+		Incomplete implementation of year guesser
+		<script src="src/yearGuesser.js"></script>
+	-->
 </body>
 </html>

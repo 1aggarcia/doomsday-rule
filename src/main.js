@@ -1,11 +1,15 @@
+/**
+ * Old code I originally wrote between 2020-21.
+ * Quite messy but I don't feel like refactoring it,
+ * instead the new jQuery code is in "yearGuesser.js"
+ */
+
 let days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
 let cents = [2, 0, 5, 3]
 let doomsdays = [3,0,0,4,2,6,4,1,5,3,0,5]
 let current_year = new Date().getUTCFullYear()
-console.log(current_year)
 let current_cent = Math.floor(current_year/100)
-console.log(current_cent)
 
 document.getElementById('start').value = current_year - 399;
 document.getElementById('end').value = current_year;
@@ -278,8 +282,11 @@ function verifyDate() {
 
 	if (date_error == false) {
 		printDate()
-		month.value = "";
-		day.value = "";
-		year.value = "";
 	}
+}
+
+function clearCalcInput() {
+	document.getElementById("year").value = "";
+	document.getElementById("month").value = "";
+	document.getElementById("day").value = "";
 }
