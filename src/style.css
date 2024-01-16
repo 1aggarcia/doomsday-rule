@@ -1,7 +1,17 @@
+:root {
+    --bg: #af0000;
+    --nav-bg: #c50000;
+    --nav-hover: #e5ff00;
+
+    --border-grey: #929292;
+    --light-grey: #d1d1d1;
+    --almost-white: #f7f7f7;
+}
+
 body {
 	font-family:"Arial";
 	margin:0;
-    background-color:#7d0000	;
+    background-color: var(--bg);
 }	
 .input_year {
     width:5em;
@@ -10,54 +20,42 @@ body {
     width:3em;
 }
 h3 {
-    border-bottom:1px solid #929292;
+    border-bottom:1px solid var(--border-grey);
 }
 .code {
-    border: 1px solid #d1d1d1;
+    border: 1px solid var(--light-grey);
     padding:5px;
-    background-color:#f7f7f7;
+    background-color:var(--almost-white);
 }
 .navigator {
     position: fixed;
     top: 0;
 	width:100%;
-    background-color:#c50000;
+    background-color: var(--nav-bg);
     display: flex;
-    justify-content: space-between;
-}
-
-.navigator p {
-    color: white;
-    font-weight: bold;
-    align-self: center;
-    margin: 0;
-    padding: 0px 15px;
-}
-
-.navigator ul {
-    background-color: yellow;
     list-style-type: none;
     overflow: hidden;
     margin: 0;
     padding: 0;
     display: flex;
 }
+.navigator .main {
+    font-weight: bold;
+}
 
 .navigator a {
     display:block;
     padding:14px 15px;
     text-decoration:none;
-    color:#ffffff;
-    font-weight:bold;
+    color:white;
     font-size:16px;
-    background-color:#cc0202;
 }
-.navigator ul a:hover {
+.navigator a:hover {
+    color: var(--nav-hover)
+}
+/* .active {
     background-color:#fc0000;
-}
-.active {
-    background-color:#fc0000;
-}
+} */
 table, th, td {
     border:1px solid;
     border-collapse:collapse;
@@ -67,7 +65,7 @@ table, th, td {
     flex: 30%;
     margin: 5px;
     padding: 10px;
-    background-color: #ffffff;
+    background-color: white;
 }
 @media screen and (max-width:600px) {
   .column {
@@ -82,7 +80,7 @@ table, th, td {
 .footer {
     margin:5px;
     padding:10px;
-    background-color:#ffffff;
+    background-color:white;
     display: flex;
     justify-content: space-between;
 }
