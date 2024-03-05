@@ -123,7 +123,7 @@ function calcDay(year, month, day) {
 	dayInput.value = day;
 
 	verifyDate();
-	window.location.href = '#calculator';
+	scrollToElem('#calculator');
 		
 }
 

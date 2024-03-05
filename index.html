@@ -10,114 +10,119 @@
 		integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
 		crossorigin="anonymous">
 	</script>
+	<script src="src/scroller.js"></script>
 </head>
 <body>
-	<ul class="navigator">
-		<a class="main">The Doomsday Rule</a>
-		<li><a href="#tools">Tools</a></li>
-		<li><a href="#tutorial">Tutorial</a></li>
-	</ul>
+	<nav>
+		<a href="."><b>The Doomsday Rule</b></a>
+		<ul>
+			<li><a href="#generator">Generator</a></li>
+			<li><a href="#calculator">Calculator</a></li>
+			<li><a href="#ltd-calc">LTD Calc</a></li>
+			<li><a href="#year-guesser">Year Guesser</a></li>
+			<li><a href="#tutorial">Tutorial</a></li>
+		</ul>
+	</nav>
 
-	<main style="margin-top:50px;">
-		<div class="row" id="tools">
-			<div id="genarator" class="column">
-				<h2>Generator</h2>
-				<p>Generates random dates between the two years entered below.
-				Default range is the past 400 years in order to make use of all century codes.</p>
-				<form action="javascript:loopDays()">
-					Generate&nbsp;
-					<input type="number" id="dates" min="1" max="20" value="5">
-					&nbsp;dates between years<br>
-					<input type="tel" id="start" class="input_year" maxlength="4" placeholder="Year" autocomplete="off" value="1600">
-					&nbsp;and&nbsp;
-					<input type="tel" id="end" class="input_year" maxlength="4" placeholder="Year" autocomplete="off" value="1999">
-					<br><br>
-					<button>Generate Dates</button>
-				</form>
+	<main>
+		<div id="generator" class="contentBox">
+			<h2>Generator</h2>
+			<p>Generates random dates between the two years entered below.
+			Default range is the past 400 years in order to make use of all century codes.</p>
+			<form action="javascript:loopDays()">
+				Generate&nbsp;
+				<input type="number" id="dates" min="1" max="20" value="5">
+				&nbsp;dates between years<br>
+				<input type="tel" id="start" class="input_year" maxlength="4" placeholder="Year" autocomplete="off" value="1600">
+				&nbsp;and&nbsp;
+				<input type="tel" id="end" class="input_year" maxlength="4" placeholder="Year" autocomplete="off" value="1999">
+				<br><br>
+				<button>Generate Dates</button>
+			</form>
+			<br>
+			<div id="dList"></div>
+		</div>
+
+		<div id="calculator" class="contentBox">
+			<h2>Calculator</h2>
+			<p>Calculates the day of the week of any date entered and breaks down the calculations.</p>
+
+			<form action="javascript:verifyDate()">
+				<input type="tel" id="year" class="input_year" placeholder="Year" maxlength="4" autocomplete="off">
+				<input type="tel" id="month" class="input_month" placeholder="Month" maxlength="2" autocomplete="off">
+				<input type="tel" id="day" class="input_day" placeholder="Day" maxlength="2" autocomplete="off">
+				<button type="submit">Calculate</button>
+				<button type="button" onclick="javascript:clearCalcInput()">Clear</button>
 				<br>
-				<div id="dList"></div>
+			<br>
+			</form>
+			<br>
+			<div class="code">
+			<code>
+				<p id="mathDate"></p>
+				<br>
+				<p id="mathDay"><p>
+				<p id="mathCent"></p>
+				<p id="mathLTD"></p>
+				<br>
+				<p id="mathDOW"></p>
+			</code>
 			</div>
-			<div id="calculator" class="column">
-				<h2>Calculator</h2>
-				<p>Calculates the day of the week of any date entered and breaks down the calculations.</p>
+		</div>
 
-				<form action="javascript:verifyDate()">
-					<input type="tel" id="year" class="input_year" placeholder="Year" maxlength="4" autocomplete="off">
-					<input type="tel" id="month" class="input_month" placeholder="Month" maxlength="2" autocomplete="off">
-					<input type="tel" id="day" class="input_day" placeholder="Day" maxlength="2" autocomplete="off">
-					<button type="submit">Calculate</button>
-					<button type="button" onclick="javascript:clearCalcInput()">Clear</button>
-					<br>
-				<br>
-				</form>
-				<br>
-				<div class="code">
+		<div id="ltd-calc" class="contentBox">
+			<h2>Last-Two-Digits Offset</h2>
+			<p>Add the number of leap years (year / 4) to the year and subtract all factors of 7 from the sum. Use this tool to double check your math.<br><br>
+			To simplify the math for larger years, you can subtract all factors of 28, (28, 56 or 84) and use that as the year instead.</p>
+
+			<form action="javascript:getLtdOff()">
+				<label for="ltd">Last Two Digits of Year: </label>
+				<input id="ltd" type="number" min="0" max="99">
+				<button>Get LTD Offset</button>
+			</form>
+			<br>
+			<div id="dList" class="code">
 				<code>
-					<p id="mathDate"></p>
-					<br>
-					<p id="mathDay"><p>
-					<p id="mathCent"></p>
-					<p id="mathLTD"></p>
-					<br>
-					<p id="mathDOW"></p>
+					<p id="ltdOut1"></p><br>
+					<p id="ltdOut2"></p>
+					<p id="ltdOut3"></p>
+					<p id="ltdOut4"></p><br>
+					<p id="ltdOut5"></p>
 				</code>
-				</div>
 			</div>
 		</div>
-		<div class="row">
-			<div id="ltd-calc" class="column">
-				<h2>Last-Two-Digits Offset</h2>
-				<p>Add the number of leap years (year / 4) to the year and subtract all factors of 7 from the sum. Use this tool to double check your math.<br><br>
-				To simplify the math for larger years, you can subtract all factors of 28, (28, 56 or 84) and use that as the year instead.</p>
 
-				<form action="javascript:getLtdOff()">
-					<label for="ltd">Last Two Digits of Year: </label>
-					<input id="ltd" type="number" min="0" max="99">
-					<button>Get LTD Offset</button>
-				</form>
+		<div id="year-guesser" class="contentBox">
+			<h2>Year Search</h2>
+			<p>
+				Gives a list of years in which the given date falls on the given day of week.
+				For example, given Tuesday, January 9, this tool will guess the year 2024.
+			</p>
+			<form id="guesserForm" onsubmit="return false">
+				<input type="checkbox" name="guesserFutureBool" id="guesserFutureBool">
+				<label for="guesserFutureBool">Search future years</label>
 				<br>
-				<div id="dList" class="code">
-					<code>
-						<p id="ltdOut1"></p><br>
-						<p id="ltdOut2"></p>
-						<p id="ltdOut3"></p>
-						<p id="ltdOut4"></p><br>
-						<p id="ltdOut5"></p>
-					</code>
-				</div>
-			</div>
-			<div id="year-guesser" class="column">
-				<h2>Year Search</h2>
-				<p>
-					Gives a list of years in which the given date falls on the given day of week.
-					For example, given Tuesday, January 9, this tool will guess the year 2024.
-				</p>
-				<form id="guesserForm" onsubmit="return false">
-					<input type="checkbox" name="guesserFutureBool" id="guesserFutureBool">
-					<label for="guesserFutureBool">Search future years</label>
-					<br>
-					<select id="guesserDow">
-						<option value="0">0 (Sun)</option>
-						<option value="1">1 (Mon)</option>
-						<option value="2">2 (Tue)</option>
-						<option value="3">3 (Wed)</option>
-						<option value="4">4 (Thu)</option>
-						<option value="5">5 (Fri)</option>
-						<option value="6">6 (Sat)</option>
-					</select>
-					<input type="tel" id="guesserMonth" class="input_month" placeholder="Month" maxlength="2" autocomplete="off">
-					<input type="tel" id="guesserDay" class="input_day" placeholder="Day" maxlength="2" autocomplete="off">
-					<button type="submit">Search Years</button>
-					<button type="button" id="guesserClearButton">Clear</button>
-				</form>
-				<div id="guesserResults" hidden>
-					<p><b>Years satisfying specified day of week:</b></p>
-					<ul id="guesserResultsList"></ul>
-				</div>
+				<select id="guesserDow">
+					<option value="0">0 (Sun)</option>
+					<option value="1">1 (Mon)</option>
+					<option value="2">2 (Tue)</option>
+					<option value="3">3 (Wed)</option>
+					<option value="4">4 (Thu)</option>
+					<option value="5">5 (Fri)</option>
+					<option value="6">6 (Sat)</option>
+				</select>
+				<input type="tel" id="guesserMonth" class="input_month" placeholder="Month" maxlength="2" autocomplete="off">
+				<input type="tel" id="guesserDay" class="input_day" placeholder="Day" maxlength="2" autocomplete="off">
+				<button type="submit">Search Years</button>
+				<button type="button" id="guesserClearButton">Clear</button>
+			</form>
+			<div id="guesserResults" hidden>
+				<p><b>Years satisfying specified day of week:</b></p>
+				<ul id="guesserResultsList"></ul>
 			</div>
 		</div>
 
-		<div id="tutorial" style="margin:5px;padding:10px;background-color:#ffffff;">
+		<div id="tutorial" class="contentBox">
 			<h2>Tutorial</h2>
 			<p>
 			The day of the week is determined by adding three components: one for the day, two for the year (the first two digits, or century, and last two digits). July 20, 1969 will be used as an example.</p>
@@ -169,7 +174,7 @@
 		</div>
 	</main>
 
-	<div class="footer">
+	<footer>
 		<div>
 			<label for="format">Date Format:</label>
 			<select id="format" name="format">
@@ -179,10 +184,10 @@
 				<option value="UKnum">DD-MM-YYYY (26-06-1969)</option>
 			</select>
 		</div>
-		<p style="margin: 0;">vers 2024.0115</p>
-	</div>
+		<p style="margin: 0;">vers 2024.0304</p>
+	</footer>
+
 	<script src="src/main.js"></script>
 	<script src="src/yearSearch.js"></script>
-	<script src="src/scroller.js"></script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 :root {
     --bg: #af0000;
     --nav-bg: #c50000;
+    --footer-border: #920000;
     --nav-hover: #e5ff00;
 
     --border-grey: #929292;
@@ -10,9 +11,32 @@
 
 body {
 	font-family:"Arial";
-	margin:0;
+	margin: 0px;
     background-color: var(--bg);
-}	
+    font-size: 1em;
+}
+
+main {
+    max-width: 1000px;
+    margin: 0px auto;
+    margin-top: 60px;
+    padding: 0px 10px;
+}
+
+.contentBox {
+    padding: 20px 30px;
+    margin: 10px 0px;
+    background-color: white;
+}
+
+footer {
+    padding: 15px;
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    border-top: 2px solid var(--footer-border);
+}
+
 .input_year {
     width:5em;
 }
@@ -27,32 +51,39 @@ h3 {
     padding:5px;
     background-color:var(--almost-white);
 }
-.navigator {
+
+nav {
     position: fixed;
     top: 0;
 	width:100%;
     background-color: var(--nav-bg);
     display: flex;
-    list-style-type: none;
-    overflow: hidden;
-    margin: 0;
-    padding: 0;
-    display: flex;
-}
-.navigator .main {
-    font-weight: bold;
 }
 
-.navigator a {
-    display:block;
-    padding:14px 15px;
-    text-decoration:none;
-    color:white;
-    font-size:16px;
+nav ul {
+    display: flex;
+    margin: 0;
+    padding: 0; 
+    list-style-type: none;
+    overflow: hidden;
 }
-.navigator a:hover {
+
+nav a {
+    display: block;
+    padding: 14px 15px;
+    text-decoration: none;
+    color:white;
+}
+nav a:hover {
     color: var(--nav-hover)
 }
+
+@media (max-width: 600px) {
+    nav ul a {
+      display: none;
+    }
+  }
+
 /* .active {
     background-color:#fc0000;
 } */
@@ -60,27 +91,4 @@ table, th, td {
     border:1px solid;
     border-collapse:collapse;
     padding:5px;
-}
-.column {
-    flex: 30%;
-    margin: 5px;
-    padding: 10px;
-    background-color: white;
-}
-@media screen and (max-width:600px) {
-  .column {
-    flex: 100%;
-  }
-}
-.row {
-    display:flex;
-    flex-flow:wrap;
-}
-
-.footer {
-    margin:5px;
-    padding:10px;
-    background-color:white;
-    display: flex;
-    justify-content: space-between;
 }
