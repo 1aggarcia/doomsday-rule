@@ -25,6 +25,30 @@
 	</nav>
 
 	<main>
+		<div id="about" class="contentBox">
+			<h2>What is this?</h2>
+			<button id="closeAboutBtn">I don't care</button>
+			<p>
+				This is a tool I started to build in 2020 when I was learning
+				to figure out the day-of-week of any arbitrary date in my head.
+				The method to do so is John Conaway's
+				<a href="https://en.wikipedia.org/wiki/Doomsday_rule">
+					doomsday algorithm.
+				</a>
+			</p>
+			<p>
+				I made this tool to quickly get random dates to practice with
+				and check their results after working out the day-of-week in my
+				head. I was also just starting to learn JavaScript at a deeper
+				level and found this to be the perfect opportunity to do so.
+				Over time I added some more features that I found useful.
+			</p>
+			<p>
+				These days I've moved on to other projects but will update
+				small things here and there whenever I feel like it.
+			</p>
+		</div>
+
 		<div id="generator" class="contentBox">
 			<h2>Generator</h2>
 			<p>Generates random dates between the two years entered below.
@@ -125,12 +149,20 @@
 		<div id="tutorial" class="contentBox">
 			<h2>Tutorial</h2>
 			<p>
+				This is an explanation of my method to mentally compute the
+				day-of-week of a calendar date, adapted from John Conaway's
+				<a href="https://en.wikipedia.org/wiki/Doomsday_rule">
+					doomsday algorithm.
+				</a>
+			</p>
+			<p>
 			The day of the week is determined by adding three components: one for the day, two for the year (the first two digits, or century, and last two digits). July 20, 1969 will be used as an example.</p>
 			a) <a href="#tutorial-day">Day offset</a><br>
 			b) <a href="#tutorial-cent">Century offset</a><br>
 			c) <a href="#tutorial-ltd">LTD offset</a>
 			<br>
 			<p>
+			<!-- This usage of <br>s is hideous, but I don't feel like fixing it -->
 			<h3 id="tutorial-day">Day offset:</h3>
 			In every year, there are certain days in each month that fall on the same day of the week of a given year. Some are very easy to remember, such as 		<br><br>4/4
 			<br>6/6
@@ -140,14 +172,34 @@
 			<br><br>There are some more that can be remembered with the mnemonic "I work 9 to 5 at the 7 eleven":
 			<br><br>5/9 and 9/5
 			<br>7/11 and 11/7
-			<br><br>This covers most months except the first three of the year. March's doomsday is on pi day (the 14th, 3.14) February's is on the last day of the month, the 29th on leap years and the 28th on regular years, and January's is on the 3rd on regular years and the 4th on leap years. The final list of doomsdays for the year are as follows:
-			<br><br>Jan 03 | Feb 28 (add one on leap years)
-			<br>Mar 14 | Apr 4
-			<br>May 9 | Jun 6
-			<br>Jul 11 | Aug 8
-			<br>Sep 5 | Oct 10
-			<br>Nov 7 | Dec 12
-			<br><br>To find the day offset you subtract the doomsday of the month from the day. For July 20, we find July's doomsday to be the 11th, so we subtract 20-11 and get 9. We will modulo the result by 7 to make calculations easier later on, so we do 9 % 7 and use 2 as the day offset.
+			<br><br>This covers most months except the first three of the year. March's doomsday is on pi day (the 14th, 3.14) February's is on the last day of the month (the 29th on leap years and the 28th on regular years), and January's is on the 3rd on regular years and the 4th on leap years. The final list of doomsdays for the year are as follows:
+			<table style="margin-top: 15px; border: none;">
+				<tr>
+					<td>Jan 3</td>
+					<td>Feb 28</td>
+					<td style="border: none;">(Jan 4, Feb 29 on leap years)</td>
+				</tr>
+				<tr>
+					<td>Mar 14</td>
+					<td>Apr 4</td>
+				</tr>
+				<tr>
+					<td>May 9</td>
+					<td>Jun 6</td>
+				</tr>
+				<tr>
+					<td>Jul 11</td>
+					<td>Aug 8</td>
+				</tr>
+				<tr>
+					<td>Sep 5</td>
+					<td>Oct 10</td>
+				</tr>
+				<tr>
+					<td>Nov 7</td>
+					<td>Dec 12</td>
+				</tr>
+			</table>
 			</p>
 			<br>
 			<p>
